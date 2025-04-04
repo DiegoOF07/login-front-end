@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil de Usuario</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: center;
+        }
+        .profile-container {
+            background-color: #f5f5f5;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 30px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .welcome-message {
+            color: #2c3e50;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        .logout-btn {
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 20px;
+        }
+        .logout-btn:hover {
+            background-color: #c0392b;
+        }
+    </style>
+</head>
+<body>
+    <div class="profile-container">
+        <div id="welcomeMessage" class="welcome-message"></div>
+        <button id="logoutBtn" class="logout-btn">Cerrar Sesión</button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const welcomeMessage = document.getElementById('welcomeMessage');
+            const logoutBtn = document.getElementById('logoutBtn');
+            
+            // Obtener el username del localStorage
+            const username = localStorage.getItem('username');
+            const userId = localStorage.getItem('userId');
+            
+            // Verificar si hay un usuario logueado
+            if (!username || !userId) {
+                // Redirigir a login si no hay usuario
+                window.location.href = 'index.html';
+                return;
+            }
+            
+            // Mostrar mensaje de bienvenida
+            welcomeMessage.textContent = `¡Bienvenido, ${username}!`;
+            
+            // Manejar el logout
+            logoutBtn.addEventListener('click', () => {
+                // Limpiar localStorage
+                localStorage.removeItem('userId');
+                localStorage.removeItem('username');
+                
+                // Redirigir a login
+                window.location.href = 'index.html';
+            });
+        });
+    </script>
+</body>
+</html>
